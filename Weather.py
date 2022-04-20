@@ -1,5 +1,4 @@
 
-from email.mime import image
 import os
 import json
 from pendulum import local
