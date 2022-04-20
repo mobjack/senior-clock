@@ -1,13 +1,13 @@
 
 import os
-import requests
-import shutil
 import pygame
+import shutil
+import requests
 import pendulum
 
 from calendar import monthcalendar, setfirstweekday
-from tracemalloc import start
-from turtle import back
+from ImagePull import pullimage
+from Weather import Weather
 from copy import deepcopy
 
 
@@ -70,20 +70,6 @@ def get_weather():
     return({'temp': 80})
 
 
-def pull_background(image_file):
-    print(f'pulling file {image_file}')
-    download_file = os.path.join(BACKGROUNDS, image_file)
-    pull_url = f'{BACKGROUND_URL}/{image_file}'
-    print(pull_url)
-    res = requests.get(pull_url, stream=True)
-    if res.status_code == 200:
-        with open(download_file, 'wb') as df:
-            shutil.copyfileobj(res.raw, df)
-        return(True)
-    else:
-        return(False)
-
-
 def display_calendar(now, textcolor):
     month = now.format('MMMM')
     year = now.format('YYYY')
@@ -143,7 +129,8 @@ def display_time(now, textcolor):
 
     background_path = os.path.join(BACKGROUNDS, background_file)
     if not os.path.exists(background_path):
-        pull_bg = pull_background(background_file)
+        pull_bg = pullimage(BACKGROUND_URL, background_file,
+                            background_file, BACKGROUNDS)
         if pull_bg == False:
             background_file = 'ocean.jpg'
 
@@ -166,6 +153,7 @@ def display_time(now, textcolor):
 def main():
     gameclock = pygame.time.Clock()
     pygame.display.set_caption('Clock')
+    weather_info = Weather()
 
     clockrun = True
     while clockrun:
@@ -177,6 +165,10 @@ def main():
                 pygame.quit()
 
         now = pendulum.now()
+        now_min = int(now.format('m'))
+        now_sec = int(now.format('s'))
+        if now_min == 0 and now_sec == 0:
+
         display_time(now, WHITE)
         display_calendar(now, GREY)
         # waitdelay = int(delay_seconds * 1000)

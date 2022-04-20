@@ -1,0 +1,12 @@
+{
+    "weather": {
+        "lat": "38.881622",
+        "long": "-77.090981",
+        "url": "https://api.openweathermap.org/data/2.5/onecall",
+        "key": "YourKey",
+        "exclude": "hourly,minutely,alerts",
+        "units": "imperial",
+        "icon_url": "http://openweathermap.org/img/wn",
+        "image_location": "backgrounds"
+    }
+}

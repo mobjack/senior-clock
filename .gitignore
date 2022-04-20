@@ -135,3 +135,4 @@ dmypy.json
 backgrounds/*.jpg
 backgrounds/*.png
 access_config.json
+tt.py
