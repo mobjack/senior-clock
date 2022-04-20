@@ -168,7 +168,7 @@ def main():
         now_min = int(now.format('m'))
         now_sec = int(now.format('s'))
         if now_min == 0 and now_sec == 0:
-
+            pass
         display_time(now, WHITE)
         display_calendar(now, GREY)
         # waitdelay = int(delay_seconds * 1000)
